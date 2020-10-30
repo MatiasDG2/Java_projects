@@ -3,8 +3,10 @@ package threads;
 public class BankSync {
     public static void main(String[] args) {
         Bank b= new Bank();
-        b.transfer(40,60,400.5);
-        System.out.println(b.getTotalMoney());
+        for (int i=0; i<100; i++){
+            Thread t= new Thread(new ExecuteRandomTransferences(b,i,2000));
+            t.start();
+        }
     }
 }
 
@@ -15,15 +17,15 @@ class Bank{
             accounts[i]= 2000;
         }
     }
-    public void transfer(int OriginAccount, int DestinationAccount, double amount){
-        if (OriginAccount>amount){
+    public void transfer(int originAccount, int destinationAccount, double amount){
+        if (originAccount>amount){
             System.out.println("Transfer money exceeds account money");
             return;
         }
-        accounts[OriginAccount]-= amount;
-        accounts[DestinationAccount]+= amount;
+        accounts[originAccount]-= amount;
+        accounts[destinationAccount]+= amount;
         System.out.println("The money was transferred");
-        System.out.println("Current money: " + accounts[OriginAccount]);
+        System.out.println("Current money: " + accounts[originAccount]);
     }
     public double getTotalMoney(){
         double total= 0;
@@ -33,4 +35,23 @@ class Bank{
         return total;
     }
     private final double[] accounts;
+}
+
+class ExecuteRandomTransferences implementes Runnable{
+    public ExecuteRandomTransferences (Bank bank, int originAccount, int maxAmount){
+        this.bank= bank;
+        this.originAccount= originAccount;
+        this.maxAmount= maxAmount;
+    }
+    public void run(){
+        while (true){
+            int destinationAccount= (int) (Math.random()*100);
+            double amount= maxAmount*Math.random;
+            transfer(originAccount, destinationAccount, amount);
+            Thread.sleep((int)(Math.random()*10));
+        }
+    }
+    private Bank bank;
+    private int originAccount;
+    private int maxAmount;
 }
