@@ -18,15 +18,19 @@ class Bank{
         }
     }
     public void transfer(int originAccount, int destinationAccount, double amount){
-        if (originAccount>amount){
-            System.out.println("Transfer money exceeds account money");
-            return;
+        l.lock();
+        try{
+            if (originAccount>amount){
+                System.out.println("Transfer money exceeds account money");
+                return;
+            }
+            accounts[originAccount]-= amount;
+            accounts[destinationAccount]+= amount;
+            System.out.println("The money was transferred");
+            System.out.println("Current money: " + accounts[originAccount]);
+        }finally{
+            l.unlock();
         }
-        accounts[originAccount]-= amount;
-        accounts[destinationAccount]+= amount;
-        System.out.println("The money was transferred");
-        System.out.println("Current money: " + accounts[originAccount]);
-    }
     public double getTotalMoney(){
         double total= 0;
         for (double i: accounts){
@@ -35,6 +39,7 @@ class Bank{
         return total;
     }
     private final double[] accounts;
+    private Lock l= new ReentrantLock();
 }
 
 class ExecuteRandomTransferences implementes Runnable{
