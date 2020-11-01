@@ -26,6 +26,24 @@ class Account{
     public void setName(String name){this.name= name;}
     public void setId(int id){this.id= id;}
     public void setBalance(long balance){this.balance= balance;}
+    public int hashCode(){
+        final int prime= 31;
+        int result= 1;
+        result= prime * result + id;
+        return result;
+    }
+    public boolean equals(Object obj){
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        libro other= (libro) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
     private String name;
     private int id;
     private long balance;
