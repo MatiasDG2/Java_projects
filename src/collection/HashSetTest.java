@@ -7,9 +7,10 @@ public class HashSetTest {
         s.add(new Account("Felipe Olivera",1,1000);
         s.add(new Account("Leandro Santoro",2,250000);
         for (Account a: s){
-            System.out.println("Nombre: " + getNombre());
-            System.out.println("Id: " + getId());
-            System.out.println("Balance: " + getBalance());
+            System.out.println("---------------------------");
+            System.out.println("Nombre: " + s.getNombre());
+            System.out.println("Id: " + s.getId());
+            System.out.println("Balance: " + s.getBalance());
         }
     }
 }
