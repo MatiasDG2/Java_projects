@@ -18,7 +18,7 @@ class Bank{
         }
     }
     public synchronized void transfer(int originAccount, int destinationAccount, double amount) throws InterruptedException{
-        if (originAccount>amount){
+        if (accounts[originAccount]<amount){
             wait();
         }
         accounts[originAccount]-= amount;
@@ -45,10 +45,10 @@ class ExecuteRandomTransferences implements Runnable{
     }
     public void run(){
         try{
-            while (true){
+            for (int i=0; i<100; i++){
                 int destinationAccount= (int) (Math.random()*100);
-                double amount= maxAmount*Math.random;
-                transfer(originAccount, destinationAccount, amount);
+                double amount= maxAmount*Math.random();
+                bank.transfer(originAccount, destinationAccount, amount);
                 Thread.sleep((int)(Math.random()*10));
             }
         }catch(InterruptedException e){}

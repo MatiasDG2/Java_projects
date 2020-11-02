@@ -1,16 +1,19 @@
 package collection;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class HashSetTest {
     public static void main(String[] args) {
         Set <Account> s= new HashSet<Account>();
-        s.add(new Account("Pepe Mujica",0,9999999);
-        s.add(new Account("Felipe Olivera",1,1000);
-        s.add(new Account("Leandro Santoro",2,250000);
+        s.add(new Account("Pepe Mujica",0,9999999));
+        s.add(new Account("Felipe Olivera",1,1000));
+        s.add(new Account("Leandro Santoro",2,250000));
         for (Account a: s){
             System.out.println("---------------------------");
-            System.out.println("Nombre: " + s.getNombre());
-            System.out.println("Id: " + s.getId());
-            System.out.println("Balance: " + s.getBalance());
+            System.out.println("Nombre: " + a.getName());
+            System.out.println("Id: " + a.getId());
+            System.out.println("Balance: " + a.getBalance());
         }
     }
 }
@@ -21,8 +24,8 @@ class Account{
         this.balance= balance;
     }
     public String getName(){return name;}
-    public String getId(){return id;}
-    public String getBalance(){return balance;}
+    public int getId(){return id;}
+    public double getBalance(){return balance;}
     public void setName(String name){this.name= name;}
     public void setId(int id){this.id= id;}
     public void setBalance(long balance){this.balance= balance;}
@@ -39,7 +42,7 @@ class Account{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        libro other= (libro) obj;
+        Account other= (Account) obj;
         if (id != other.id)
             return false;
         return true;
